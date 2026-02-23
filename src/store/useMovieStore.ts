@@ -2,9 +2,13 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import type { Filters, MovieMeta, SortDirection, SortField } from '../types/movie'
 
+export type Theme = 'dark' | 'light'
+
 interface MovieStore {
     moviesMeta: Record<string, MovieMeta>
     filters: Filters
+    theme: Theme
+    toggleTheme: () => void
     toggleFavorite: (id: string) => void
     toggleWatched: (id: string) => void
     setAnnotation: (id: string, annotation: string, starRating: number) => void
@@ -45,6 +49,10 @@ export const useMovieStore = create<MovieStore>()(
         (set, get) => ({
             moviesMeta: {},
             filters: { ...defaultFilters },
+            theme: 'dark' as Theme,
+
+            toggleTheme: () =>
+                set((state) => ({ theme: state.theme === 'dark' ? 'light' : 'dark' })),
 
             getMeta: (id) => get().moviesMeta[id] ?? defaultMeta(id),
 
@@ -115,6 +123,7 @@ export const useMovieStore = create<MovieStore>()(
             partialize: (state) => ({
                 moviesMeta: state.moviesMeta,
                 filters: state.filters,
+                theme: state.theme,
             }),
         }
     )

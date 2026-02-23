@@ -1,73 +1,65 @@
-# React + TypeScript + Vite
+# 🎬 Ghibli Movies
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicação web que consome a [API pública do Studio Ghibli](https://ghibliapi.vercel.app) e exibe os filmes do estúdio com filtros avançados, favoritos, anotações pessoais e avaliações por estrelas.
 
-Currently, two official plugins are available:
+## 🚀 Como rodar
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```bash
+# Instalar dependências
+bun install
 
-## React Compiler
+# Rodar em desenvolvimento
+bun run dev
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+# Rodar testes
+bun run test
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Build de produção
+bun run build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🛠️ Tecnologias
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+| Tecnologia | Uso |
+|---|---|
+| React 18 + TypeScript | Framework principal |
+| Vite | Build tool |
+| Tailwind CSS v4 | Estilização |
+| Zustand + persist | Estado global + localStorage |
+| Axios + TanStack Query | Requisições HTTP e cache |
+| Framer Motion | Animações |
+| Lucide React | Ícones |
+| Sonner | Toast notifications |
+| Vitest + Testing Library | Testes unitários |
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+
+## 🧪 Rodando os testes
+
+```bash
+bun run test
+```
+
+Os testes cobrem as ações principais do store: `toggleFavorite`, `toggleWatched`, `setAnnotation`, `removeAnnotation` e `toggleTheme`.
+
+## 📁 Estrutura de Pastas
+
+```
+src/
+├── components/
+│   ├── AnnotationModal/   # Modal de anotações e estrelas
+│   ├── FilterPanel/       # Painel de filtros e ordenação
+│   ├── MovieCard/         # Card do filme + grid
+│   ├── SearchBar/         # Busca e toggle de sinopse
+│   └── ui/               # Componentes genéricos
+├── hooks/
+│   ├── useMovies.ts       # Busca via TanStack Query
+│   └── useFilteredMovies.ts # Filtragem e ordenação com useMemo
+├── services/
+│   └── ghibliService.ts   # Axios + API Ghibli
+├── store/
+│   └── useMovieStore.ts   # Zustand store com persist
+├── types/
+│   └── movie.ts           # Tipos e interfaces
+└── lib/
+    └── queryClient.ts     # Configuração do QueryClient
 ```
