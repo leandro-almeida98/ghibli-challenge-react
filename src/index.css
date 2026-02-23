@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @layer base {
   * {
     box-sizing: border-box;
@@ -13,8 +15,18 @@
   }
 
   body {
+    min-height: 100vh;
+  }
+
+  /* Dark mode (padrão) */
+  html {
     background-color: #0f0f1a;
     color: #e2e8f0;
-    min-height: 100vh;
+  }
+
+  /* Light mode */
+  html.light {
+    background-color: #f8fafc;
+    color: #0f172a;
   }
 }

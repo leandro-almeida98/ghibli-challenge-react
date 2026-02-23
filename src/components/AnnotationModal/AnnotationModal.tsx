@@ -24,7 +24,7 @@ function StarRating({ value, onChange }: { value: number; onChange: (v: number) 
                         onClick={() => onChange(star)}
                         onMouseEnter={() => setHovered(star)}
                         onMouseLeave={() => setHovered(0)}
-                        className={`text-2xl transition-transform hover:scale-125 ${filled ? 'text-yellow-400' : 'text-slate-600'}`}
+                        className={`text-2xl transition-transform hover:scale-125 ${filled ? 'text-yellow-400' : 'text-gray-300 dark:text-slate-600'}`}
                     >
                         ★
                     </button>
@@ -71,7 +71,7 @@ export function AnnotationModal({ movie, onClose }: AnnotationModalProps) {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4"
+                className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
                 onClick={onClose}
             >
                 <motion.div
@@ -79,36 +79,44 @@ export function AnnotationModal({ movie, onClose }: AnnotationModalProps) {
                     animate={{ scale: 1, opacity: 1 }}
                     exit={{ scale: 0.9, opacity: 0 }}
                     transition={{ type: 'spring', damping: 20 }}
-                    className="w-full max-w-lg bg-[#1a1a2e] border border-[#2a2a3e] rounded-2xl shadow-2xl p-6"
+                    className="w-full max-w-lg rounded-2xl shadow-2xl p-6
+            bg-white dark:bg-[#1a1a2e]
+            border border-gray-200 dark:border-[#2a2a3e]"
                     onClick={(e) => e.stopPropagation()}
                 >
-                    {/* Header */}
                     <div className="flex items-start justify-between mb-4">
                         <div>
-                            <h2 className="text-lg font-bold text-white">{movie.title}</h2>
-                            <p className="text-xs text-slate-400 mt-0.5">{isEditing ? 'Editar anotação' : 'Nova anotação'}</p>
+                            <h2 className="text-lg font-bold text-gray-900 dark:text-white">{movie.title}</h2>
+                            <p className="text-xs text-gray-400 dark:text-slate-400 mt-0.5">
+                                {isEditing ? 'Editar anotação' : 'Nova anotação'}
+                            </p>
                         </div>
-                        <button onClick={onClose} className="text-slate-500 hover:text-slate-300 transition-colors">
+                        <button
+                            onClick={onClose}
+                            className="text-gray-400 dark:text-slate-500 hover:text-gray-600 dark:hover:text-slate-300 transition-colors"
+                        >
                             <X className="w-5 h-5" />
                         </button>
                     </div>
 
-                    {/* Avaliação */}
                     <div className="mb-4">
-                        <label className="text-xs text-slate-400 mb-2 block">Minha avaliação</label>
+                        <label className="text-xs text-gray-500 dark:text-slate-400 mb-2 block">Minha avaliação</label>
                         <StarRating value={stars} onChange={setStars} />
                     </div>
 
-                    {/* Textarea */}
                     <textarea
                         value={text}
                         onChange={(e) => setText(e.target.value)}
                         placeholder="Escreva sua anotação sobre o filme..."
                         rows={5}
-                        className="w-full bg-[#0f0f1a] border border-[#2a2a3e] rounded-xl p-3 text-sm text-slate-100 placeholder-slate-600 focus:outline-none focus:border-purple-500 resize-none transition-colors"
+                        className="w-full rounded-xl p-3 text-sm resize-none transition-colors
+              bg-gray-50 dark:bg-[#0f0f1a]
+              border border-gray-200 dark:border-[#2a2a3e]
+              text-gray-900 dark:text-slate-100
+              placeholder-gray-400 dark:placeholder-slate-600
+              focus:outline-none focus:border-purple-400 dark:focus:border-purple-500"
                     />
 
-                    {/* Ações */}
                     <div className="flex items-center gap-2 mt-4">
                         <button
                             onClick={handleSave}
@@ -120,8 +128,7 @@ export function AnnotationModal({ movie, onClose }: AnnotationModalProps) {
                         {isEditing && (
                             <button
                                 onClick={handleRemove}
-                                className="px-3 py-2.5 rounded-xl bg-red-600/20 text-red-400 hover:bg-red-600/30 border border-red-600/30 transition-colors"
-                                title="Remover anotação"
+                                className="px-3 py-2.5 rounded-xl bg-red-50 dark:bg-red-600/20 text-red-500 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-600/30 border border-red-200 dark:border-red-600/30 transition-colors"
                             >
                                 <Trash2 className="w-4 h-4" />
                             </button>

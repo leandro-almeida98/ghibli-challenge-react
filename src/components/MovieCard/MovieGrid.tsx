@@ -21,9 +21,9 @@ export function MovieGrid({ movies, isLoading, searchTerm, includeDescription, o
 
     if (movies.length === 0) {
         return (
-            <div className="flex flex-col items-center justify-center py-24 text-slate-400">
+            <div className="flex flex-col items-center justify-center py-24 text-gray-400 dark:text-slate-400">
                 <span className="text-6xl mb-4">🎬</span>
-                <p className="text-lg font-medium">Nenhum filme encontrado</p>
+                <p className="text-lg font-medium text-gray-700 dark:text-slate-300">Nenhum filme encontrado</p>
                 <p className="text-sm mt-1">Tente ajustar os filtros ou a busca</p>
             </div>
         )
